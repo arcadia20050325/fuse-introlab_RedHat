@@ -1,70 +1,71 @@
 # Red Hat Fuse 6.3 Workshop - Fuse Integration Service 2.0
 
-This very simple lab will guide you to create your very first Fuse SpringBoot project running on OpenShift. There are 3 sections in the lab.
+これはOpenShift上で動作するFuse SpringBootプロジェクトを作成するシンプルなハンズオンチュートリアルです。
+このチュートリアルは以下の4つのセクションで構成されています。
 
-* Create a project that read from a database
-* Expose a restful API endpoint to access data in the database
-* Deploy your application on OpenShift
-* Manage and control the access to your API using 3scale
+* データベースからデータを読み込むプロジェクトを作成する
+* RESTful APIエンドポイントを公開する
+* 作成したアプリケーションをOpenShiftにデプロイする
+* 3scaleを使ってAPIを管理・制御する
 
-## Red Hat 3scale API Management Platform Account
-This lab focuses on the deployment and administration of Red Hat 3Scale. One deployment topology available is known as a *hybrid* approach. A *hybrid* Red Hat 3Scale deployment topology is one in which the 3Scale API gateway is self-managed in your own environment. This self-managed API gateway is in two-way communication with the hosted Red Hat 3Scale SaaS API Management Platform (AMP).
+## Red Hat 3scale API管理プラットフォームのアカウント登録
+このチュートリアルではRed Hat 3scaleのデプロイと管理にフォーカスします。
+ここで紹介するデプロイパターンはハイブリッドアプローチというものです。ハイブリッドアプローチは3scaleのAPIゲートウェイを自分の環境に設定する方法です。
+このゲートウェイはパブリッククラウドで管理された、Red Hat 3Scale SaaS API管理プラットフォーム (以下AMP）と双方向通信を行います。
 
 ![00-3scale.png](./img/00-3scale.png)
 
-The focus of lab 04 of this course is on this hybrid deployment topology. Subsequently, the lab 04 make heavy use of your account in the Red Hat 3Scale SaaS AMP. If you do not have a Red Hat 3Scale SaaS, please register for free trial one at: https://www.3scale.net/signup/.
+lab4のチュートリアルでこのハイブリッドアプローチを使いますので、事前にRed Hat 3Scale SaaS AMPの無料トライアルアカウントを登録してください。（https://www.3scale.net/signup/）
 
-You will receive an email in your inbox to complete the signup process and activate your account.
+登録したメールアドレスにメールが届きますので、アカウントのアクティベーションを行い登録プロセスを完了します。
 
-## Installation
-Before you begin, please make sure the following software are properly installed
+## インストール
+以下のソフトウェアが事前にインストールされていることを確認してください。
 
-* JBoss Development Suite V1.3 (MacOX/Windows), sorry Linux users, you are on your own
-	* JBoss Developer Studio 10.3.0.GA with Integration SOA plugin installed
+* JBoss Development Suite V1.3 (MacOSX/Windows)
+	* JBoss Developer Studio 10.3.0.GA (Integration SOA プラグインがインストールされていること）
 	https://developers.redhat.com/products/devsuite/download/
 	* Java Platform, Standard Edition 1.8.0.111
 	* Red Hat Container Development Kit 2.4.0.GA
 	* Oracle Virtualbox 5.0.26
 	* Vagrant 1.8.1
 
-## Installing and setup development environment
-Double click on the JBoss Development Suite, log in using your Red Hat Developer Site credentials.
+## 開発環境のインストールと設定
+JBoss Development Suiteをダブルクリックし、あなたが登録したRed Hat Developerサイトの認証情報でログインします。
 
 ![01-login.png](./img/01-login.png)
 
-Pick an installation folder destination.
-The installer guide will detect the components needed, and guide you through the installation process.
-
-Installed the components with the version specified in the installer and start to download and install.
+インストールフォルダの宛先を指定します。
+インストーラーで指定したバージョンのコンポーネントを選択し、コンポーネントのダウンロードとインストールが開始されます。
 
 ![02-components.png](./img/02-components.png)
 
-Immediately after installation, you will be prompted to select a workspace for your developer studio project. Select anything path of your choice.
+インストールが終わると、プロジェクトのワークスペースを選択する画面が表示されます。任意の場所を指定してください。
 
-Once inside Red Hat JBoss Developer Studio, select "Software/Update" tag in the middle panel. Check the "JBoss Fuse Development" box and click on Install/Update button.
+Red Hat JBoss Developer Studioの画面の真ん中のパネルにある "Software/Update"タグを選択します。"JBoss Fuse Development"ボックスをクリックし、Install/Update ボタンをクリックします。
 
 ![04-plugin.png](./img/04-plugin.png)
 
-Red Hat JBoss Developer Studio will restart.
+Red Hat JBoss Developer Studioが再起動されます。
 
-## Installing and setup Container Development Kit
+## コンテナ開発キット（Container Development Kit）をインストールし設定する
 
-Under the folder where you installed the Development Suite, you will find a folder named **cdk** go to **${DEVSUITE_INSTALLTION_PATH}/cdk/components/rhel/rhel-ose/** edit file **Vagrantfile**
+Development Suiteをインストールしたフォルダの直下に、 **cdk** という名前のフォルダがあります。**${DEVSUITE_INSTALLTION_PATH}/cdk/components/rhel/rhel-ose/** に移動して、 **Vagrantfile** を編集します。
 
-Find the IMAGE_TAG and configure the OCP version to v3.4, then save the file.
+IMAGE_TAG を探して、OCPバージョンを v3.4 に設定してファイルを保存します。
 
 ```
 #Modify IMAGE_TAG if you need a new OCP version e.g. IMAGE_TAG="v3.3.1.3"
 IMAGE_TAG="v3.4"
 ```
 
-In a command line console, start up your local Openshift
+コマンドラインコンソールでローカルのOpenShiftを起動します。
 
 ```
 vagrant up
 ```
 
-Install and setup oc binary client
+oc バイナリクライアントをインストールして設定します。
 
 ```
 vagrant service-manager install-cli openshift
@@ -72,7 +73,7 @@ export PATH=${vagrant_dir}/data/service-manager/bin/openshift/1.4.0:$PATH
 eval "$(VAGRANT_NO_COLOR=1 vagrant service-manager install-cli openshift  | tr -d '\r')"
 ```
 
-Login as admin
+admin でログインします。
 
 ```
 oc login -u admin
@@ -83,7 +84,7 @@ Login successful.
 
 ```
 
-Install Fuse image stream on OpenShift and Database template for this lab
+チュートリアルで使用する、Fuseのイメージストリームとデータベースのテンプレートをインストールします。
 
 ```
 #FIS image
@@ -93,7 +94,7 @@ oc create -f https://raw.githubusercontent.com/jboss-fuse/application-templates/
 oc create -f https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-ephemeral-template.json -n openshift
 ```
 
-log back in as developer
+developer でログインします。
 
 ```
 oc login -u openshift-dev
@@ -104,30 +105,25 @@ Login successful.
 
 ```
 
-Access OpenShift console by going to the following URL in the browser.
+以下のURLから Access OpenShift コンソールにアクセスします。
 
 ```
 https://10.1.2.2:8443
 ```
 
-Going back to Red Hat JBoss Developer Studio, in OpenShift Explorer view, click on **New Connection Wizard..** to configure OpenShift setting
-Enter **https://10.1.2.2:8443** as the **Server** and click on the **retrieve** link to access the token.
+Red Hat JBoss Developer Studioにビュー戻り、OpenShift Explorer ビューで **New Connection Wizard..** をクリックして OpenShiftを設定します。
+**Server** に **https://10.1.2.2:8443** を入力し、**retrieve** リンクをクリックしてトークンを入手します。
 
 ![05-token.png](./img/05-token.png)
 
-In the popup window, log in as Developer using ID/PWD openshift-del/devel. Select ok and check the **Save token** box.
+ポップアップウィンドウでdeveloper/developerでログインします。OKを選択して **Save token** ボックスをチェックします。
 
 ![06-connection.png](./img/06-connection.png)
 
-## Windows Users
+## Windows利用の場合
 
-- Make sure you disable  Hyper-V functionality under Control Panel
+- コントロールパネルで Hyper-V 機能を無効にします。
 - Add _config.ssh.insert\_key=false_ to **Vagrantfile** ${DEVSUITE_INSTALLATION_PATH}/cdk/components/rhel/rhel-ose/
 
 Thanks to @sigreen
 
-## FAQ
-- How to install Maven?  
-	- Go to https://maven.apache.org/install.html for detail instructions
-- Maven dependency not found?
-	- ${MAVEN_INSTALLED_DIR} if you are having trouble downloading from the repositories
