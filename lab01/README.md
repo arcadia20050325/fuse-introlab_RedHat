@@ -1,27 +1,27 @@
-## Lab one - Create first SprintBoot Fuse project
-In JBoss Developer Studio, create a new project by right click in the project explorer panel, select **New** -> **Fuse Integration Project**
+## Lab 1 - 初めてのSprintBoot Fuse プロジェクトを作る
+JBoss Developer StudioのProject Explorerパネルで右クリックし、**New** -> **Fuse Integration Project** を選んで新しいプロジェクトを作成します。
 
 ![01-FIS-project.png](./img/01-FIS-project.png)
 
-Enter **myfuselab** as the project name, and click *next*
+プロジェクト名に **myfuselab** を入力し、*next* をクリックします。
 
-IMPORTANT NOTE : MUST select **2.18.1.redhat-000012** as the Camel Version!!
+重要 : Camelバージョンに **2.18.1.redhat-000012** を選んでください。
 
-In select target runtime, click *next*
+*next* をクリックします。
 
 ![02-runtime.png](./img/02-runtime.png)
 
-In Advance project setup, choose **Use a predefined template** and select **Fuse on OpenShift** -> **SprintBoot on OpenShift** and click *finish*
+Advance project setup画面で、 **Use a predefined template** を選択し、**Fuse on OpenShift** -> **SprintBoot on OpenShift** を選択して *finish* をクリックします。
 
 ![03-template.png](./img/03-template.png)
 
-JBDS is going ask if you want to change to Fuse perspective, click yes. 
+Fuse perspectiveに変更するかと聞いてきますので、yesをクリックします。
 
-Under *src/main/resources* duplicate **application.properties** and with name **application-dev.properties**, we are going to use this as the setting during our developement time.
+*src/main/resources* ディレクトリにある **application.properties** をカット＆ペーストで複製し、**application-dev.properties** という名前で保存します。これを開発用の設定情報として利用します。
 
 ![04-devproperties.png](./img/04-devproperties.png)
 
-Append at the end the following datasource configuration to file **application-dev.properties**,
+**application-dev.properties** のデータソース構成として以下を追加します。
 
 ```
 #Database configuration
@@ -31,19 +31,19 @@ spring.datasource.password =
 spring.datasource.driver-class-name = org.h2.Driver
 spring.datasource.platform = h2
 ```
-*note: we are using H2 in memory database for testing. And thanks to autowiring in SpringBoot, it is now automatically loaded and wired as the default datasource to the Camel context*
+*注意: 今回はテスト用として、H2のインメモリデータベースを利用します。 SpringBootの自動ワイヤー機能により、Camel contextのデフォルトデータソースとして自動的にロードしてワイヤーされます。*
 
-Create a new file under *src/main/resources* by right click on the folder itself in the project explorer panel, select **New** -> **Others**
+*src/main/resources* フォルダで右クリックして、**New** -> **Others**を選択して新規ファイルを作成します。
 
 ![05-newfile.png](./img/05-newfile.png)
 
-In Select a wizard, choose **File** and click next,
+ウィザードで **File** を選択し、nextをクリックします。
 
-In File, put **schema.sql** as the file name, and make sure it's under the myfuselab project *src/main/resources* and select finish.
+ファイル名に **schema.sql** を指定します。myfuselabプロジェクトの *src/main/resources* に作成されることを確認してfinishを選択します。
 
 ![06-schemasql.png](./img/06-schemasql.png)
 
-Add the following SQL to **schema.sql**
+以下のSQL文を **schema.sql** に追加します。
 
 ```
 CREATE TABLE customerdemo (
@@ -58,31 +58,32 @@ INSERT INTO customerdemo (customerID,vipStatus,balance) VALUES ('A02','Gold',500
 
 ![07-sql.png](./img/07-sql.png)
 
-Double click on the **camel-context.xml** file under **Camel Contexts**, you will see the Camel route, delete the simple-route in the canvas.
+**Camel Contexts** の下にある **camel-context.xml** ファイルをダブククリックすると、Camelルートが確認できます。
+今回新規に作成するのでキャンバスに表示されるデフォルトのルートを削除します。
 
 ![08-deleteroute.png](./img/08-deleteroute.png)
 
-Create a new route by draging **ROUTE** component from the *Routing* palette on the right. Name the route to **customer** by entering it in the *ID* textbox in the properties section.
+右側にある *Routing* パレットから、**ROUTE** コンポーネントをドラッグして新しいルートを作成します。プロパティセクションにある *ID* テキストボックスにルート名 **customer** を設定します。
 
 ![09-route.png](./img/09-route.png)
 
-Use Timer to kick start the route, drag the **TIMER** component from the *Components* palette on the right, and drag it to the route into the canvas. Under *Properties*-> *Advance* tab -> *Consumer* , set **Repeat Count** to **1**
+ルートを起動するために Timer を利用します。右側にある *Components* パレットから **TIMER** コンポーネントをドラッグし、キャンバス内のルートにドロップします。 *Properties*-> *Advance* タブ -> *Consumer* を表示し、 **Repeat Count** プロパティに **1**　を入力します。
 
 ![10-timer.png](./img/10-timer.png)
 
-To read data from the datasource, select **SQL** component from the *Components* palette on the right to the route. Under *Properties*-> *Advance* tab -> *Path*, set **Query** to **select * from customerdemo** 
+データソースからデータを読み込むため、 *Components* パレットから **SQL** コンポーネントを選択します。 *Properties*-> *Advance* タブ -> *Path* を表示して、 **Query** プロパティに **select * from customerdemo** を設定します。 
 
 ![11-sqlcomponent.png](./img/11-sqlcomponent.png)
 
-and in *Common* tab set **Data Source** to **dataSource**
+さらに *Common* タブで、 **Data Source** プロパティに **dataSource** を設定します。
 
 ![12-datasource.png](./img/12-datasource.png)
 
-And lastly select **LOG** component from the *Components* palette to the end of route. Under *Properties*-> *Detail* tab, set **Message** to **${body}**
+最後にAnd lastly select **LOG** コンポーネントを選択し、*Components* パレットからルートに持って来ます。 *Properties*-> *Detail* タブを表示し、 **Message** プロパティに **${body}** を設定します。
 
 ![13-log.png](./img/13-log.png)
 
-Before we kick start the application, add the database driver dependency in the **pom.xml** file
+アプリケーションを開始する前に、データベースドライバーの依存性を **pom.xml** に追加します。
 
 ```
 ...
@@ -102,15 +103,15 @@ Before we kick start the application, add the database driver dependency in the 
     ...
 </dependencies>
 ```
-Right click on the **myfuselab** in the project explorer panel, select **Run As..** -> **Maven build...** 
+Project Explorerパネルの **myfuselab** を右クリックし、**Run As..** -> **Maven build...** を選択します。
 
 ![14-mavenrun.png](./img/14-mavenrun.png)
 
-in the pop-up windown enter **spring-boot:run** in *Goals* and select **Skip Tests**.
+ポップアップウィンドウで、 *Goals* プロパティに **spring-boot:run** を入力し、 **Skip Tests** プロパティをチェックします。
 
 ![15-springbootrun.png](./img/15-springbootrun.png)
 
-In you log console, verify that cutomer data are printed.
+ログコンソールに顧客データが表示されていることを確認します。
 ```
 customer - [{CUSTOMERID=A01, VIPSTATUS=Diamond, BALANCE=1000}, {CUSTOMERID=A02, VIPSTATUS=Gold, BALANCE=500}]
 ```

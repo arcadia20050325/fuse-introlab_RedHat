@@ -1,6 +1,6 @@
-## Lab three - Deploying to OpenShift
+## Lab 3 - OpenShiftにデプロイする
 
-###Starting CDK
+###CDKを起動する
 
 For Agile Integration Workshop 
 Go to your terminal, and type in 
@@ -47,11 +47,11 @@ oc cluster up --version v3.5.5.31 --image registry.access.redhat.com/openshift3/
 -- Permissions on profile dir fixed
 Switched to context "test".
 ```
-You can try view the OpenShift console by going to https://127.0.0.1:8443/console in the browser. 
+ブラウザからhttps://127.0.0.1:8443/consoleにアクセスして、OpenShiftコンソールを表示します。 
 ![00-openshift.png](./img/00-openshift.png)
 
 
-Now it's time to deploy the application onto OpenShift, we have been testing with the H2 Database in memeory, now it's time to run it with a real database. Add the following datasource setting under *src/main/resources* in **application.properties**
+OpenShiftにアプリケーションをデプロイする前に、これまでインメモリのH2データベースでテストして来ましたので、これを正規のデータベースで実行できるようにします。以下のデータソース設定を、 *src/main/resources* フォルダにある **application.properties** ファイルに追加します。
 
 ```
 #mysql specific
@@ -66,7 +66,7 @@ spring.datasource.username = ${mysql.service.username}
 spring.datasource.password = ${mysql.service.password}
 ```
 
-Since we will be using MYSQL database, add the driver dependency in **pom.xml**
+今回はMYSQL データベースを使うため、**pom.xml** にドライバーの依存性を追加します。
 
 ```
 <dependency>
@@ -81,15 +81,14 @@ Since we will be using MYSQL database, add the driver dependency in **pom.xml**
 ```
 
 
-Open OpenShift Explorer view, on the top menu select window -> Show view -> others. a window will popup. Type openshift in the search field. And select OpenShift Explorer
+トップメニューから window -> Show view -> others を選択します。ポップアップウィンドウでopenshiftを検索し、OpenShift Explorerを選択します。
 ![00-view.png](./img/00-view.png)
 ![00-openshiftexplorer02.png](./img/00-openshiftexplorer.png)
 
-In OpenShift Explorer, right click on the connection that connects to current OpenShift, and create a new project. **NEW** -> **Project**
-
+OpenShift Explorerの現在接続中のOpenShiftの接続を右クリックして、**NEW** -> **Project** から新規プロジェクトを作成します。
 ![01-newproject.png](./img/01-newproject.png)
 
-And create Project Name: **myfuseproject** with Display Namw: **My Fuse Project**
+プロジェクト名を **myfuseproject** 、表示名を **My Fuse Project** とします。
 
 ![02-projectname.png](./img/02-projectname.png)
 
@@ -97,11 +96,11 @@ In side the project we are going to first create a MYSQL database for our appkic
 
 ![03-newapp.png](./img/03-newapp.png)
 
-Under Server application source, select **mysql-ephemeral(database, mysql) - openshift** and click next.
+Server application sourceのところで **mysql-ephemeral(database, mysql) - openshift** を選択してNextをクリックします。
 
 ![04-mysql.png](./img/04-mysql.png)
 
-Make sure to configure the following parameters
+以下のパラメータを設定します。
 
 ```
 MYSQL_PASSWORD = password
@@ -109,7 +108,7 @@ MYSQL_USER = dbuser
 ```
 ![05-param.png](./img/05-param.png)
 
-Click Finish, and you should see the mysql instance running in OpenShift explorer.
+Finishをクリックすると、OpenShift Explorerにmysqlインスタンスが実行されていることが確認できます。
 
 ![06-mysqlcreated.png](./img/06-mysqlcreated.png)
 
@@ -125,42 +124,42 @@ To see everything running, in your browser, go to *https://<OPENSHIFT_IP>:8443/c
 
 ![09-overview.png](./img/09-overview.png)
 
-To access the service outside OpenShift, go to **Application** -> **Service** on the left menu, and click **camel-ose-springboot-xml** in the service page.
+OpenShiftの外のサービスにアクセスするため、左のメニューから**Application** -> **Service** を選択し、サービスページにある **camel-ose-springboot-xml** を選択します。
 
 ![10-service.png](./img/10-service.png)
 
-Click on **Create route**.
+**Create route**　をクリックします。
 
 ![11-createroute.png](./img/11-createroute.png)
 
-Don't change anything and hit Create.
+そのままCreateをクリックします。
 
-Access the API endpoint by going to following URL
+以下のURLでAPIエンドポイントにアクセスします。
 
 ```
 curl http://<YOUR_ROUTE>/myfuselab/customer/all
 curl  http://<YOUR_ROUTE>/myfuselab/customer/A01
 ```
 
-Verify that it is returning customer data in JSON format
+顧客データがJSONフォーマットで返ってくることを確認します。
 ```
 [{"CUSTOMERID":"A01","VIPSTATUS":"Diamond","BALANCE":1000},{"CUSTOMERID":"A02","VIPSTATUS":"Gold","BALANCE":500}]
 
 [{"CUSTOMERID":"A01","VIPSTATUS":"Diamond","BALANCE":1000}]
 ```
-To see the Camel route in action, in your OpenShift console, go to **Application** -> **pod** and select the first **camel-ose-springboot-xml-1-xxxxx** pod.
+Camelルートの実行状況を確認するためには、OpenShift コンソールから**Application** -> **pod** に行き、先頭の **camel-ose-springboot-xml-1-xxxxx** ポッドを選択します。
 
 ![12-podlist.png](./img/12-podlist.png)
 
-Click **Open Java Console**, and it's going to take you to the indiviual console that show how your Camel route is doing.
+**Open Java Console** をクリックし、Camelルートの状態を確認することができます。
 
 ![13-pod.png](./img/13-pod.png)
 
-Click on **Route Diagram** and hit the URL couple of times to see what happens.
+**Route Diagram** をクリックし、実行中の状況を確認することができます。
 
 ![14-javaconsole.png](./img/14-javaconsole.png)
 
-For those of you who wants to see what is going on in database, login to the MYSQL database in your command line console.
+下記のようにMySQLデータベースにログインして、データベースの内容を確認することもできます。
 
 ```
 oc project myfuseproject

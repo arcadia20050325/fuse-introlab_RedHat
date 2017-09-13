@@ -1,24 +1,24 @@
-Lab four - API Management
+Lab 4 - API管理
 ===
 
-### Connecting your Customers API to 3scale API Management
+### 作成した顧客APIを、3scale API Managementで管理する
 
-In order to connect your Customers API to 3scale, you need to follow three simple steps:
+作成した顧客APIを、3scaleで管理するためには、次の3つのステップを実行する必要があります。
 
-1. Access your 3scale Admin Portal and set up your first service.
-1. Customize your Developer Portal and sign up as a developer.
-1. Integrate your API with 3scale using the API gateway.
+1. 3scale Admin Portalにアクセスし、サービスを設定します。
+1. デベロッパーポータルをカスタマイズし、開発者としてログインします。
+1. 3scaleのAPIゲートウェイを通じて、作成したAPIを利用します。
 
-### Step 0: Review Pre-Reqs
+### ステップ0: 事前準備
 
-Before provisioning an on-premise API gateway environment, you will want to check on the following regarding your 3scale SaaS account :
+オンプレミスの API gateway 環境を構築する前に、以下の3scale SaaSアカウントに関する情報を確認してください。
 
-1. 3scale Domain
+1. 3scale ドメイン
     * You should know what the domain name is of your 3scale SaaS accoount is.
 
     * The name of your 3scale domain is referenced in the URL to your Administrative Portal of the 3scale SaaS environment. ie: https://&lt;YOURDOMAIN&gt;-admin.3scale.net/p/admin/dashboard.
 
-1. 3scale Access Token
+1. 3scale アクセストークン
     * To get an Access Token, you can easily create one by navigating to:
 
         `Gear Icon in top right corner -> Personal Settings -> Tokens -> Add Access Token`
@@ -39,11 +39,11 @@ Before provisioning an on-premise API gateway environment, you will want to chec
 
     > **Note:** Don't forget to copy your token into a safe place as this is the only point where you'll be able to view it. If you fail to do so, you can always create a new access token.
 
-### Step 1: Define your API
+### ステップ1: APIを定義する
 
 Your 3scale Admin Portal (http://&lt;YOURDOMAIN&gt;-admin.3scale.net) provides access to a number of configuration features.
 
-1. Login into the Admin Portal:
+1. Admin Portalにログインする
 
     ![01-login.png](./img/01-login.png)
 
@@ -59,17 +59,17 @@ Your 3scale Admin Portal (http://&lt;YOURDOMAIN&gt;-admin.3scale.net) provides a
 
     ![03-edit-settings.png](./img/03-edit-settings.png)
 
-1. Select the **APIcast self-managed** Gateway deployment option.
+1. **APIcast self-managed** ゲートウェイ用デプロイオプションを選択します。
 
     ![04-apicast.png](./img/04-apicast.png)
 
-1. Keep the **API Key (user_key)** Authentication.
+1. **API Key (user_key)** 認証を選択します。
 
     ![05-authentication.png](./img/05-authentication.png)
 
-1. Click on **Update Service**
+1. **Update Service**をクリックします。
 
-1. Click on the **add the Base URL of your API and save the configuration** button
+1. **add the Base URL of your API and save the configuration** ボタンをクリックします。
 
 1. Expand the **mapping rules** section to define the allowed methods on our exposed API.
 
@@ -77,11 +77,11 @@ Your 3scale Admin Portal (http://&lt;YOURDOMAIN&gt;-admin.3scale.net) provides a
 
     ![07b-mapping-rules.png](./img/07b-mapping-rules.png)
 
-1. Click on the **Metric or Method (Define)**  link.
+1. **Metric or Method (Define)**  リンクをクリックします。
 
     ![07b-mapping-rules-define.png](./img/07b-mapping-rules-define.png)
 
-1. Click on the **New Method** link in the *Methods* section.
+1. *Methods* セクションの **New Method** リンクをクリックします。
 
     ![07b-new-method.png](./img/07b-new-method.png)
 
@@ -95,25 +95,25 @@ Your 3scale Admin Portal (http://&lt;YOURDOMAIN&gt;-admin.3scale.net) provides a
 
     ![07b-new-method-data.png](./img/07b-new-method-data.png)
 
-1. Click on **Create Method**
+1. **Create Method** をクリックします。
 
 1. **Optional:** Add the `Get Customer` method if you followed the instructions in the previous part of this lab to search by `{id}`. Name it `customer_get`.
 
-1. Click on the **Add mapping rule** link
+1. **Add mapping rule** リンクをクリックします。
 
     ![07b-add-mapping-rule.png](./img/07b-add-mapping-rule.png)
 
-1. Click on the edit icon next to the GET mapping rule.
+1. GET mapping rule の隣にあるeditアイコンをクリックします。
 
     ![07b-edit-mapping-rule.png](./img/07b-edit-mapping-rule.png)
 
-1. Enter `/myfuselab/customer/all` as the Pattern.
+1. パターンとして `/myfuselab/customer/all` を入力します。
 
-1. Select `customers_all` as Method.
+1. メソッドとして `customers_all` を入力します。
 
     ![07b-getall-rule.png](./img/07b-getall-rule.png)
 
-1. *Optional::* Click on the **Add Mapping Rule** button to add the `customer_get` method mapping.
+1. *オプション::* **Add Mapping Rule** ボタンをクリックして `customer_get` メソッドマッピングを追加します。
 
 1. Fill in the information for accessing your API:
 
@@ -125,13 +125,13 @@ Your 3scale Admin Portal (http://&lt;YOURDOMAIN&gt;-admin.3scale.net) provides a
 
     ![07-baseurl-configuration.png](./img/07-baseurl-configuration.png)
 
-    > **Note:** We are using the internal API service, as we are deploying our services inside the same OpenShift cluster.
+    > **注意:** We are using the internal API service, as we are deploying our services inside the same OpenShift cluster.
 
-1. Scroll down to the **API Test GET request**.
+1. **API Test GET request**にスクロールします。
 
-1. Enter `/myfuselab/customer/all`.
+1. `/myfuselab/customer/all`と入力します。
 
-1. Click on the **Update the Staging Environment** to save the changes and then click on the **Back to Integration & Configuration** link.
+1. **Update the Staging Environment** をクリックして変更を保存したのち、**Back to Integration & Configuration** リンクをクリックします。
 
     ![08-update-staging.png](./img/08-update-staging.png)
 
@@ -141,7 +141,7 @@ Your 3scale Admin Portal (http://&lt;YOURDOMAIN&gt;-admin.3scale.net) provides a
 
 1. Success! Your 3scale access control layer will now only allow authenticated calls through to your backend API.
 
-### Step 2: Register a new account using the Developer Portal
+### ステップ2: デペロッパーポータルを使って新しいアカウントを登録する
 
 The focal point of your developers’ experience is the API developer portal, and the level of effort you put into it will determine the level of decreased support costs and increased developer engagement. 3scale provides a built-in, state-of-the-art CMS portal, making it very easy to create your own branded hub with a custom domain to manage developer interactions and increase API adoption.
 
@@ -230,7 +230,7 @@ Liquid is a simple programming language used for displaying and processing most 
 
     > **Note:** Copy down this key as it is used to authenticate yourself to the managed API.
 
-### Step 3: Deploy APIcast using the OpenShift template
+### ステップ3: APIcastをOpenShiftテンプレートを使ってデプロイする
 
 
 1. By default you are logged in as *developer* and can proceed to the next step.
@@ -243,13 +243,13 @@ Liquid is a simple programming language used for displaying and processing most 
 
     You should see Login successful. in the output.
 
-2. Create your project. This example sets the display name as *gateway*
+2. プロジェクトを作成します。今回はdisplay nameを *gateway* とします。
 
     ```
     oc new-project "3scalegateway" --display-name="API Gateway" --description="3scale API gateway"
     ```
 
-    The response should look like this:
+    以下のようなレスポンスになります。
 
     ```
     Now using project "3scalegateway" on server "https://172.30.0.112:8443".
@@ -339,7 +339,7 @@ Liquid is a simple programming language used for displaying and processing most 
 
     If you wish to see the APIcast logs, you can do so by clicking **Applications > Pods**, selecting one of the pods and finally selecting **Logs**.
 
-### Step 4: Test APIcast
+### ステップ4: APIcast をテストする
 
 1. Test that APIcast authorizes a valid call to your API, by executing a curl command with your valid developer's `user_key` to the `hostname` that you configured in the previous step:
 
@@ -391,6 +391,6 @@ Liquid is a simple programming language used for displaying and processing most 
     Set-Cookie: e286b151c44656235d8bdca6ee183477=e58d9930d57779957bf1695b6c805dcd; path=/; HttpOnly
     ```
 
-    The *HTTP/1.1 403 Forbidden* response code indicates that our user_key was wrong or we don't have permisson to access this API endpoint.
+    *HTTP/1.1 403 Forbidden* 応答コードが返ってくる場合、user_key が間違っているか、APIエンドポイントのアクセス権限がない可能性があります。
 
-1. You have sucessfully configured 3scale API Management and Gateway to access your API.
+1. You have sucessfully configured 3scale API Management とゲートウェイを構成することができました。 Gateway to access your API.

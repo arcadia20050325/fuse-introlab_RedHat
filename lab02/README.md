@@ -1,7 +1,7 @@
-Lab two - Creating APIs
+Lab 2 - APIを作成する
 ===
 
-To expose a HTTP API endpoint, we first have to inject a Servlet into Camel context, go to **camel-context.xml** file under **Camel Contexts**, open the *source* tab, add the following code snippet before the `<camelContext..>` tag.
+HTTP API エンドポイントを作成するには、まずCamelコンテキストにServletを注入する必要があります。 **Camel Contexts** の下にある **camel-context.xml** ファイルを開き、*source* タブを表示し、下記のコードを `<camelContext..>` タグの前に追加します。
 
 ```
     ...
@@ -15,7 +15,7 @@ To expose a HTTP API endpoint, we first have to inject a Servlet into Camel cont
     ...
 ```
 
-In the same file, under the `<camelcontext..>` tag add the following code snippet to configure the REST endpoint. So that it is now using the Servlet we have injected from last step
+同じファイル内で、 `<camelcontext..>` タグの下に、下記コードを追加し、RESTエンドポイントを設定します。
 
 ```
     ...
@@ -29,7 +29,7 @@ In the same file, under the `<camelcontext..>` tag add the following code snippe
 	...
 ```
 
-We are now going to expose a single API endpoint, right after the **restConfiguration** add
+次にAPIエンドポイントを１つ作成するため、 **restConfiguration** の下に下記コードを追加します。
 
 ```
     ...
@@ -42,21 +42,21 @@ We are now going to expose a single API endpoint, right after the **restConfigur
     ...
 ```
 
-Now, instead of trigger the database select with a timer, we are going to trigger it by the API call. In your Camel route, replace the **Timer** with **Direct** component.
+さらに、タイマーでデータベースの検索をトリガーする代わりに、作成したAPIコールによりトリガーするように変更します。Camelルートにある **Timer** を **Direct** コンポーネントに置き換えます。
 
-replace
+下記の記述を、
 
 ```
 <from id="time1" uri="timer:timerName?repeatCount=1"/>
 ```
 
-with
+次のように変更します。
 
 ```
 <from id="direct1" uri="direct:getallcustomer"/>
 ```
 
-Next up, we are going to add all the dependencies needed to the maven **pom.xml** file
+続いて **pom.xml** ファイルに全ての依存性を追加します。
 
 ```
     <dependency>
@@ -77,34 +77,34 @@ Next up, we are going to add all the dependencies needed to the maven **pom.xml*
     </dependency>
 ```
 
-Right click on the **myfuselab** in the project explorer panel, select **Run As..** -> **Maven build** to start up the Camel application again. And run the following command in your command line console.
+Project Explorerパネルの **myfuselab** を右クリックし、**Run As..** -> **Maven build** を選択してCamelアプリケーションを開始します。コマンドラインコンソールを開いて以下のコマンドを実行してみましょう。
 
 ```
 curl -i http://localhost:8080/myfuselab/customer/all
 ```
 
-Verify that it is returning a list of customer data in JSON format
+顧客データのリストがJSONフォーマットで返ってくることを確認します。
 
 ```
 [{"CUSTOMERID":"A01","VIPSTATUS":"Diamond","BALANCE":1000},{"CUSTOMERID":"A02","VIPSTATUS":"Gold","BALANCE":500}]
 ```
 
-Stop the application, Try add another API endpoints which takes in the Customer ID and return the customer data matching the ID.
+アプリケーションを停止して、別のAPIエンドポイントを作成してみましょう。Customer IDを引数として、IDにマッチする顧客データを返すAPIとして、
 
-To display swagger documentation,
+Swagger ドキュメントを表示するためには、以下のコマンドを実行します。
 
 ```
 curl -i http://localhost:8080/myfuselab/api-docs
 ```
 
-#### HINT!
+#### ヒント!
 
-* Add a new REST endpoint that takes in customerid and calls the new camel route we just created.
+* 新しいREST エンドポイントを追加し、 that takes in customerid and calls the new camel route we just created.
 	* uri="{custid}"
-* Add a new Camel route that takes in customerid as paramter
+* 新しいCamelルートを追加し、 customerid をパラメータとして受け付けます。
 	* select * from customerdemo where customerID=:#custid
 
-Verify with Swagger doc and test the API make sure it is returning customer A01's data in JSON format
+Swagger ドキュメントを確認し、 APIをテストします。 顧客A01のデータが正しくJSONフォーマットで返ってくるか確認します。
 
 ```
 curl -i http://localhost:8080/myfuselab/api-docs
