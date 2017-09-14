@@ -1,4 +1,5 @@
-# Red Hat Fuse 6.3 Workshop - Fuse Integration Service 2.0
+# Agile Integration Workshop
+(Red Hat Fuse 6.3 Workshop - Fuse Integration Service 2.0)
 
 これはOpenShift上で動作するFuse SpringBootプロジェクトを作成するシンプルなハンズオンチュートリアルです。
 このチュートリアルは以下の4つのセクションで構成されています。
@@ -15,7 +16,7 @@
 
 ![00-3scale.png](./img/00-3scale.png)
 
-lab4のチュートリアルでこのハイブリッドアプローチを使いますので、事前にRed Hat 3Scale SaaS AMPの無料トライアルアカウントを登録してください。（https://www.3scale.net/signup/）
+lab4のチュートリアルでこのハイブリッドアプローチを使いますので、事前にRed Hat 3Scale SaaS AMPの無料トライアルアカウントを登録してください。（https://www.3scale.net/signup）
 
 登録したメールアドレスにメールが届きますので、アカウントのアクティベーションを行い登録プロセスを完了します。
 
