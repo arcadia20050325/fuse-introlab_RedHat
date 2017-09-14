@@ -31,7 +31,7 @@ spring.datasource.password =
 spring.datasource.driver-class-name = org.h2.Driver
 spring.datasource.platform = h2
 ```
-*注意: 今回はテスト用として、H2のインメモリデータベースを利用します。 SpringBootの自動ワイヤー機能により、Camel contextのデフォルトデータソースとして自動的にロードしてワイヤーされます。*
+*注意: 今回はテスト用として、H2のインメモリデータベースを利用します。 SpringBootのコンポーネント自動検出機能により、Camel contextのデフォルトデータソースとして自動的にロードされます。*
 
 *src/main/resources* フォルダで右クリックして、**New** -> **Others**を選択して新規ファイルを作成します。
 
@@ -46,6 +46,7 @@ spring.datasource.platform = h2
 以下のSQL文を **schema.sql** に追加します。
 
 ```
+DROP TABLE IF EXISTS `customerdemo`;
 CREATE TABLE customerdemo (
 	customerID varchar(10) NOT NULL,
 	vipStatus varchar(10) NOT NULL ,
