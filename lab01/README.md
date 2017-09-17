@@ -31,7 +31,7 @@ spring.datasource.password =
 spring.datasource.driver-class-name = org.h2.Driver
 spring.datasource.platform = h2
 ```
-*注意: 今回はテスト用として、H2のインメモリデータベースを利用します。 SpringBootのコンポーネント自動検出機能により、Camel contextのデフォルトデータソースとして自動的にロードされます。*
+*注意: 今回はテスト用として、H2のインメモリデータベースを利用します。 SpringBootのAutoConfiguration機能により、Camel contextのデフォルトデータソースとして自動的にロードされます。*
 
 *src/main/resources* フォルダで右クリックして、**New** -> **Others**を選択して新規ファイルを作成します。
 
