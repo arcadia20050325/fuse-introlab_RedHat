@@ -2,14 +2,13 @@
 
 ###CDKを起動する
 
-For Agile Integration Workshop 
-Go to your terminal, and type in 
+まだOpenShiftを起動していない場合は、コマンドプロンプトを開いて以下のコマンドを実行します。
 
 ```
 oc-cluster up your_name
 ```
 
-This will start up the Openshift platform in your instance. 
+以下の応答が返ってきたら、OpenShiftの起動が成功です。
 
 ```
 $ oc-cluster up yourname
@@ -47,7 +46,8 @@ oc cluster up --version v3.5.5.31 --image registry.access.redhat.com/openshift3/
 -- Permissions on profile dir fixed
 Switched to context "test".
 ```
-ブラウザからhttps://127.0.0.1:8443/consoleにアクセスして、OpenShiftコンソールを表示します。 
+
+ブラウザから https://127.0.0.1:8443/console にアクセスして、OpenShiftコンソールを表示します。 
 ![00-openshift.png](./img/00-openshift.png)
 
 

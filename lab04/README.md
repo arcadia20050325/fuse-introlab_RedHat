@@ -13,15 +13,14 @@ Lab 4 - API管理
 
 オンプレミスの API gateway 環境を構築する前に、以下の3scale SaaSアカウントに関する情報を確認してください。
 
-1. 3scale ドメイン
-    * You should know what the domain name is of your 3scale SaaS accoount is.
+1. 3scale ドメインを取得する
+    * 事前準備で取得した3scaleのドメインを確認します。
+    * ドメイン名は管理者ポータルのURLから確認できます。https://&lt;ドメイン名&gt;-admin.3scale.net/p/admin/dashboard
 
-    * The name of your 3scale domain is referenced in the URL to your Administrative Portal of the 3scale SaaS environment. ie: https://&lt;YOURDOMAIN&gt;-admin.3scale.net/p/admin/dashboard.
+1. 3scale アクセストークンを取得する
+    * アクセストークンを取得するためには、以下の手順を実行してください。
 
-1. 3scale アクセストークン
-    * To get an Access Token, you can easily create one by navigating to:
-
-        `Gear Icon in top right corner -> Personal Settings -> Tokens -> Add Access Token`
+        `右上の歯車のアイコン -> Personal Settings -> Tokens -> Add Access Token`
 
         ![00-accesstoken-a.png](./img/00-accesstoken-a.png)
 
@@ -31,17 +30,17 @@ Lab 4 - API管理
 
         ![00-accesstoken-d.png](./img/00-accesstoken-d.png)
 
-    + The scope of your access token should be: *Account Management API*.
+    + アクセストークンのスコープは *Account Management API* とします。
 
-    * Also ensure that your access token has *Read Only* permissions.
+    * またアクセストークンの権限は *Read Only* とします。
 
         ![00-accesstoken-e.png](./img/00-accesstoken-e.png)
 
-    > **Note:** Don't forget to copy your token into a safe place as this is the only point where you'll be able to view it. If you fail to do so, you can always create a new access token.
+    > **注意:** このトークンをコピーしてください。万が一忘れた場合は、新しく作成することも可能です。
 
 ### ステップ1: APIを定義する
 
-Your 3scale Admin Portal (http://&lt;YOURDOMAIN&gt;-admin.3scale.net) provides access to a number of configuration features.
+3scale管理者ポータル (http://&lt;YOURDOMAIN&gt;-admin.3scale.net) でAPIの設定を行います。
 
 1. Admin Portalにログインする
 

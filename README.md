@@ -72,10 +72,4 @@ Red Hat JBoss Developer Studioにビュー戻り、OpenShift Explorer ビュー�
 
 ![06-connection.png](./img/06-connection.png)
 
-## Windows利用の場合
-
-- コントロールパネルで Hyper-V 機能を無効にします。
-- Add _config.ssh.insert\_key=false_ to **Vagrantfile** ${DEVSUITE_INSTALLATION_PATH}/cdk/components/rhel/rhel-ose/
-
-Thanks to @sigreen
 
