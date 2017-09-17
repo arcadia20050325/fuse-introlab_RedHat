@@ -1,4 +1,4 @@
-## Lab 1 - 初めてのSprintBoot Fuse プロジェクトを作る
+## Lab 1 - 初めてのSprint Boot Fuse プロジェクトを作る
 JBoss Developer StudioのProject Explorerパネルで右クリックし、**New** -> **Fuse Integration Project** を選んで新しいプロジェクトを作成します。
 
 ![01-FIS-project.png](./img/01-FIS-project.png)

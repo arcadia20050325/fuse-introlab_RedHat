@@ -47,15 +47,15 @@ Your 3scale Admin Portal (http://&lt;YOURDOMAIN&gt;-admin.3scale.net) provides a
 
     ![01-login.png](./img/01-login.png)
 
-1. If it's the first time you access the 3scale portal, like when you click the *activate* link from the sign up email, dismiss and close the wizard by clicking on the top right **X**.
+1. 3scale ポータルのアクセスが初めての場合、クイックスタートの画面になります。上部右側にある **X** をクリックしてウィザードを閉じてください。
 
     ![01a-wizard.png](./img/01a-wizard.png)
 
-1. The first page you will land is the API tab. From here we will create our API definition. Click on the `Integration` link.
+1. 最初にAPIタブが表示されます。ここでAPIの定義を作成していきます。まずは `Integration` リンクをクリックしてください。
 
     ![02-api-integration.png](./img/02-api-integration.png)
 
-1. Click on the `edit integration settings` to edit the API settings for the gateway.
+1. `edit integration settings` をクリックしてゲートウェイの設定を編集します。
 
     ![03-edit-settings.png](./img/03-edit-settings.png)
 
@@ -71,13 +71,13 @@ Your 3scale Admin Portal (http://&lt;YOURDOMAIN&gt;-admin.3scale.net) provides a
 
 1. **add the Base URL of your API and save the configuration** ボタンをクリックします。
 
-1. Expand the **mapping rules** section to define the allowed methods on our exposed API.
+1. **mapping rules** セクションを開き、公開するAPIの計測したいメトリクスを定義します。
 
-    > **Note:** the default mapping is the root ("/") of our API resources, something that we might want to avoid.
+    > **注意:** デフォルトのマッピングルールはルート ("/") となっています。
 
     ![07b-mapping-rules.png](./img/07b-mapping-rules.png)
 
-1. **Metric or Method (Define)**  リンクをクリックします。
+1. **Metric or Method (Define)** リンクをクリックします。
 
     ![07b-mapping-rules-define.png](./img/07b-mapping-rules-define.png)
 
@@ -85,7 +85,7 @@ Your 3scale Admin Portal (http://&lt;YOURDOMAIN&gt;-admin.3scale.net) provides a
 
     ![07b-new-method.png](./img/07b-new-method.png)
 
-1. Fill in the information for your Fuse Method.
+1. メソッド情報を入力します。
 
     **Friendly name:** `Get Customers`
 
@@ -97,7 +97,7 @@ Your 3scale Admin Portal (http://&lt;YOURDOMAIN&gt;-admin.3scale.net) provides a
 
 1. **Create Method** をクリックします。
 
-1. **Optional:** Add the `Get Customer` method if you followed the instructions in the previous part of this lab to search by `{id}`. Name it `customer_get`.
+1. **オプション:** `Get Customer` メソッドを追加してください。method if you followed the instructions in the previous part of this lab to search by `{id}`. Name it `customer_get`.
 
 1. **Add mapping rule** リンクをクリックします。
 
@@ -113,9 +113,9 @@ Your 3scale Admin Portal (http://&lt;YOURDOMAIN&gt;-admin.3scale.net) provides a
 
     ![07b-getall-rule.png](./img/07b-getall-rule.png)
 
-1. *オプション::* **Add Mapping Rule** ボタンをクリックして `customer_get` メソッドマッピングを追加します。
+1. *オプション:* **Add Mapping Rule** ボタンをクリックして `customer_get` メソッドマッピングを追加します。
 
-1. Fill in the information for accessing your API:
+1. 作成したAPIにアクセスするための情報を入力します。
 
     **Private Base URL:** `http://camel-ose-springboot-xml.myfuseproject.svc.cluster.local:80`
 
@@ -135,11 +135,12 @@ Your 3scale Admin Portal (http://&lt;YOURDOMAIN&gt;-admin.3scale.net) provides a
 
     ![08-update-staging.png](./img/08-update-staging.png)
 
-1. Click on the **Promote v.1 to Production** button to promote your configuration from staging to production.
+1. Click on the **Promote v.1 to Production** ボタンをクリックし、ステージングから本番へ構成を昇格させます。
 
     ![08a-promote-production.png](./img/08a-promote-production.png)
 
-1. Success! Your 3scale access control layer will now only allow authenticated calls through to your backend API.
+1. これで成功です。あなたの3scale環境は、バックエンドAPIに対して認証されたリクエストのみを許可するように設定できました。
+
 
 ### ステップ2: デペロッパーポータルを使って新しいアカウントを登録する
 
@@ -147,7 +148,7 @@ The focal point of your developers’ experience is the API developer portal, an
 
 You can customize the look and feel of the entire Developer Portal to match your own branding. You have complete control over every element of the portal, so you can make it as easy as possible for developers to learn how to use your API.
 
-The Developer Portal's CMS consists of a few elements:
+デベロッパーポータルのコンテンツ管理システムは以下の要素で構成されています。
 * Horizontal menu in the Admin Portal with access to content, redirects, and changes
 * The main area containing details of the sections above
 * CMS mode, accessible through the preview option
@@ -156,89 +157,89 @@ The Developer Portal's CMS consists of a few elements:
 
 Liquid is a simple programming language used for displaying and processing most of the data from the 3scale system available for API providers. In the 3scale platform, it is used to expose server-side data to your API developers, greatly extending the usefulness of the CMS while maintaining a high level of security.
 
-1. Click on the `Developer Portal` tab to access the developer portal settings.
+1. `Developer Portal` タブをクリックしてデベロッパーポータルの設定画面にアクセスします。
 
     ![10-developer-portal.png](./img/10-developer-portal.png)
 
-1. Click on the `Visit Developer Portal` to take a look of how your developer portal looks like.
+1. `Visit Developer Portal` をクリックして、実際のポータル画面を確認します。
 
     ![11-visit-devportal.png](./img/11-visit-devportal.png)
 
-    You can see there is a default portal with information of your API and how to signup. Unfortunately the API information is incorrect.
+    デフォルトのAPI説明画面とサインアップの方法などが示されています。API情報はデフォルトのEcho APIになっていますので編集が必要です。
 
     ![12-devportal-overview.png](./img/12-devportal-overview.png)
 
-    > **Note:** We will edit our portal to update it with the correct information and to add the shadowman cool logo.
 
-1. Go back to your admin portal browser tab and search the content sub-sections for the `Layouts `and select the `</> Main layout`
+1. 管理者ポータルへ戻り、`Layouts `サブセクションの `</> Main layout` を探します。
 
     ![12-main-layout.png](./img/12-main-layout.png)
 
-1. First look for the `navbar` section of the main HTML. Replace the `{{ provider.name }}` for the shadowman image link:
+1. HTML編集画面で `navbar` セクションを探します。`{{ provider.name }}` の部分を以下のように変更して画像リンクを追加します。
 
     `<img src="https://www.redhat.com/profiles/rh/themes/redhatdotcom/img/logo.png" alt="{{ provider.name }}">`
 
     ![13-custom-logo.png](./img/13-custom-logo.png)
 
-1. Click on `Publish` button at the bottom of the editor to save the changes and made them available in the site.
+1. エディターの下部にある `Publish` ボタンをクリックし、変更を保存してサイトに公開します。
 
     ![14-publish-devportal.png](./img/14-publish-devportal.png)
 
-1. Go back to browse the top of the content sub-sections and find the `Homepage` section.
+1. `Homepage` セクションを選択します。
 
     ![15-homepage-devportal.png](./img/15-homepage-devportal.png)
 
-1. Change all the code `Echo` references in the homepage code for `Customer`.
+1. `Echo` と書かれている文字を `Customer` に置き換えます。
 
-1. Update the API call examples to reflect your real Fuse API calls.
+1. API呼び出しのサンプルを作成したFuse API用に更新します。
 
-    > **Note:** Use your production base url and add your defined methods. Dont worry if you don't have the "real" output, it won't affect the rest of the lab.
+    > **注意:** 本番用URLで定義しましょう。ただしここが間違っていてもこの後のハンズオンには影響ありません。
 
-1. Refresh your Developer Portal's browser tab to check the changes. Your Developer Portal should look like this:
+1. デベロッパーポータルを再読み込みして変更を確認します。
 
     ![16-updated-devportal.png](./img/16-updated-devportal.png)
 
-1. Take the place of one of your developers and signup for the **Basic** plan.
+1. **Basic** プランに入会します。
 
     ![16a-signup-limited.png](./img/16a-signup-limited.png)
 
-1. Fill in your information and your email to register as a developer. Click on the `Sign up` button.
+1. あなたのemailアドレスを入力して、`Sign up` ボタンをクリックします。
 
     ![16b-signup-form.png](./img/16b-signup-form.png)
 
-    > **Note:** Use an email address you can actually access.
+    > **注意:** 実際に受け取れるメールアドレスを入力してください。
 
-1. Check your email and click on the `activate` link.
+1. メール本文にある`activate` リンクをクリックしてください。
 
     ![16c-activate-account.png](./img/16c-activate-account.png)
 
-1. As your portal is not currently public, you will need your portal code to finish the registration. You can get the code in your admin portal navigating to: `Settings > Developer Portal > Domains & Access`.
+1. 作成したポータルは現在パブリックに公開されていないので、登録を完了するためにはアクセスコードを入力する必要があります。コードは管理者ポータルの `Settings > Developer Portal > Domains & Access` で確認できます。
 
     ![16d-access-portal.png](./img/16d-access-portal.png)
 
-1. Type your portal code to finish the account activation.
+1. ポータルコードを入力してアカウントのアクティベーションを完了します。
 
     ![16e-ingress-code.png](./img/16e-ingress-code.png)
 
-1. Now that your developer account is active, sign in the portal.
+1. ポータルにログインします。
 
     ![16f-dev-signin.png](./img/16f-dev-signin.png)
 
-1. You will land in the developers homepage, where you will be able to check your developers settings and retrieve your `User Key`.
+1. 開発者のホームページが表示されます。ここであなたが利用できる `User Key`を取得することができます。
 
     ![16g-user-key.png](./img/16g-user-key.png)
 
-    > **Note:** Copy down this key as it is used to authenticate yourself to the managed API.
+    > **注意:** このキーを使ってAPIにアクセスしますのでコピーをとっておいてください。
+
 
 ### ステップ3: APIcastをOpenShiftテンプレートを使ってデプロイする
 
 
-1. By default you are logged in as *developer* and can proceed to the next step.
+1. デフォルトではBy default you are logged in as *developer* and can proceed to the next step.
 
     Otherwise login into OpenShift using the `oc login` command from the OpenShift Client tools you downloaded and installed in the previous step. The default login credentials are *username = "developer"* and *password = "developer"*:
 
     ```
-    oc login https://<OPENSHIFT-SERVER-IP>:8443
+    oc login -u developer https://<OPENSHIFT-SERVER-IP>:8443
     ```
 
     You should see Login successful. in the output.
@@ -255,31 +256,28 @@ Liquid is a simple programming language used for displaying and processing most 
     Now using project "3scalegateway" on server "https://172.30.0.112:8443".
     ```
 
-    Ignore the suggested next steps in the text output at the command prompt and proceed to the next step below.
 
-1. Create a new secret to reference your admin portal configuration.
+1. 3scale管理ポータルを参照するための新しいシークレットを作成します。
 
     ```
     oc secret new-basicauth apicast-configuration-url-secret --password=https://<ACCESS_TOKEN>@<DOMAIN>-admin.3scale.net
     ```
 
-    Here **&lt;ACCESS_TOKEN&gt;** is an Access Token (not a Service Token) for the 3scale Account Management API, and **&lt;DOMAIN&gt;-admin.3scale.net** is the URL of your 3scale Admin Portal.
+    **&lt;ACCESS_TOKEN&gt;** は、3scaleのAccount Management API用に取得したアクセストークンを指定します。 **&lt;DOMAIN&gt;-admin.3scale.net** は、あなた自身で取得した3scale管理者ポータルのURLです。
 
-    > **Note:** You got this access token and domain in the Pre-Reqs section.
-
-    The response should look like this:
+    以下の応答が返ってきます。
 
     ```
     secret/apicast-configuration-url-secret
     ```
 
-1. Create an application for your APIcast Gateway from the template, and start the deployment:
+1. APIcast Gateway をテンプレートから生成してデプロイします。
 
     ```
     oc new-app -f https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/2.0.0.GA-redhat-2/apicast-gateway/apicast.yml
     ```
 
-    You should see the following messages at the bottom of the output:
+    成功すると以下のメッセージが返ってきます。
 
     ```
     --> Creating resources ...
@@ -289,43 +287,44 @@ Liquid is a simple programming language used for displaying and processing most 
       Run 'oc status' to view your app.
     ```
 
-1. Open the web console for your OpenShift cluster in your browser:  https://&lt;OPENSHIFT-SERVER-IP&gt;:8443/console/
+1. OpenShiftのコンソールを開きます。 https://&lt;OPENSHIFT-SERVER-IP&gt;:8443/console/
 
-    You should see the login screen:
+    ログイン画面が表示されます。
 
     ![17-openshift-login.png](./img/17-openshift-login.png)
 
-      > **Note:** You may receive a warning about an untrusted web-site. This is expected, as we are trying to access the web console through secure protocol, without having configured a valid certificate. While you should avoid this in production environment, for this test setup you can go ahead and create an exception for this address.
+      > **注意:** You may receive a warning about an untrusted web-site. This is expected, as we are trying to access the web console through secure protocol, without having configured a valid certificate. While you should avoid this in production environment, for this test setup you can go ahead and create an exception for this address.
 
-1. Log in using the `developer` credentials in the section above.
+1. `developer` アカウントでログインします。
 
-    You will see a list of projects, including the *gateway* project you created from the command line above.
+    プロジェクト一覧が表示され、先ほど作成した *API Gateway* プロジェクトも含まれていることを確認します。
 
     ![18-openshift-projects.png](./img/18-openshift-projects.png)
 
-1. Click on *gateway* and you will see the *Overview* tab.
+1. *API Gateway* をクリックし *Overview* タブを表示します。
 
-    Each APIcast instance, upon starting, downloads the required configuration from 3scale using the settings you provided on the **Integration** page of your 3scale Admin Portal.
+    それぞれのAPIcast インスタンスは、開始時に必要となる設定（先ほど3scale管理者ポータルで設定した情報）をダウンロードします。
 
     ![19-openshift-threescale.png](./img/19-openshift-threescale.png)
 
-1. In order to allow your APIcast instances to receive traffic, you'll need to create a route. Start by clicking on **Create Route**.
+1. APIcastインスタンスがトラフィックを受け付けるようにするためには、 ルートを作成する必要があります。 **Create Route**をクリックします。
 
     ![20-openshift-create-route.png](./img/20-openshift-create-route.png)
 
-    Enter the same host you set in 3scale above in the section **Staging Public Base URL** (without the http:// and without the port), in this lab's step 1: `customer-api-staging.<OPENSHIFT-SERVER-IP>.nip.io`, then click the **Create** button.
+    **Staging Public Base URL** セクションで設定したホスト名を入力します( http:// とポート番号は除く)。
+    その後 **Create** ボタンをクリックします。
 
     ![21-openshift-route-config.png](./img/21-openshift-route-config.png)
 
-1. Now add the production route. This time select `Applications -> Routes` from the left options.
+1. 本番用ルートも追加します。左側のメニューから`Applications -> Routes` を選択します。
 
     ![22-applications-routes.png](./img/22-applications-routes.png)
 
-1. Click on the `Create Route` button.
+1. `Create Route` ボタンをクリックします。
 
     ![23-create-route.png](./img/23-create-route.png)
 
-1. Fill in the information.
+1. 情報を入力します。
 
     **Name:** `apicast-production`
 
@@ -333,20 +332,20 @@ Liquid is a simple programming language used for displaying and processing most 
 
     ![24-production-route.png](./img/24-production-route.png)
 
-1. Create on the `Create` button in the botton of the page to save the production route.
+1. `Create` ボタンをクリックして本番用ルートを保存します。
 
-    Your API Gateways are now ready to receive traffic. OpenShift takes care of load-balancing incoming requests to the route across the two running APIcast instances.
+    これでAPI Gateways はトラフィックを受け付ける準備ができました。OpenShift は、2つのAPIcastインスタンスでロードバランスを自動的に行います。
 
-    If you wish to see the APIcast logs, you can do so by clicking **Applications > Pods**, selecting one of the pods and finally selecting **Logs**.
+    If you wish to see the APIcast のログを見る場合は、**Applications > Pods** をクリックし、どちらかのpodを選択して **Logs** タブを選択します。
 
 ### ステップ4: APIcast をテストする
 
-1. Test that APIcast authorizes a valid call to your API, by executing a curl command with your valid developer's `user_key` to the `hostname` that you configured in the previous step:
+1. curlコマンドを使って、APIcast が正しく動作するか確認します。その際、開発者アカウントで割り当てられた `user_key` を使って実施する必要があります。
 
     ```
     curl -i "http://customer-api-production.<OPENSHIFT-SERVER-IP>.nip.io:80/myfuselab/customer/all?user_key=YOUR_USER_KEY" --insecure
     ```
-    You should see the following messages:
+    成功すると以下のメッセージが返ってきます。
 
     ```
     HTTP/1.1 200 OK
@@ -372,15 +371,15 @@ Liquid is a simple programming language used for displaying and processing most 
     [{"CUSTOMERID":"A01","VIPSTATUS":"Diamond","BALANCE":1000},{"CUSTOMERID":"A02","VIPSTATUS":"Gold","BALANCE":500}]
     ```
 
-    The last line is the same output as when calling the API directly.
+    最後の行はAPIを直接呼び出した時と同じ結果になります。
 
-2. Test that APIcast does not authorize an invalid call to your API.
+2. 無効な呼び出しにより、APIcastが認証しない場合もテストします。
 
     ```
     curl -i "http://customer-api-production.<OPENSHIFT-SERVER-IP>.nip.io:80/myfuselab/customer/all?user_key=INVALID_KEY" --insecure
     ```
 
-    When calling the API endpoint with an invalid key, the following messages appear:
+    APIエンドポイントを無効なキーで呼び出した場合、以下のメッセージが表示されます。
 
     ```
     HTTP/1.1 403 Forbidden
@@ -393,4 +392,5 @@ Liquid is a simple programming language used for displaying and processing most 
 
     *HTTP/1.1 403 Forbidden* 応答コードが返ってくる場合、user_key が間違っているか、APIエンドポイントのアクセス権限がない可能性があります。
 
-1. You have sucessfully configured 3scale API Management とゲートウェイを構成することができました。 Gateway to access your API.
+1. これで 3scale API Management とゲートウェイを構成することができました。以上で全てのハンズオンは終了です。お疲れ様でした。
+
