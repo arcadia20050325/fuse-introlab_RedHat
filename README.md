@@ -43,9 +43,11 @@ JBoss Development Suiteをダブルクリックし、あなたが登録したRed
 
 注意: CDKのインストールに失敗した場合、すでに別のCDKがセットアップされている可能性があります。
 以下コマンドにて既存のCDKをアンインストールしてください。
+```
 $ minishift delete
 $ sudo rm -rf ~/.minishift
 $ sudo rm -rf ~/.kube
+```
 
 ## コンテナ開発キット（Container Development Kit）を開始する
 
