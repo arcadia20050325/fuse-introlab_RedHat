@@ -1,4 +1,4 @@
-Lab 2 - APIを作成する
+Lab 2 : APIを作成する
 ===
 
 HTTP API エンドポイントを作成するには、まずCamelコンテキストにServletを注入する必要があります。 **Camel Contexts** の下にある **camel-context.xml** ファイルを開き、*source* タブを表示し、下記のコードを `<camelContext..>` タグの前に追加します。
@@ -89,9 +89,9 @@ curl -i http://localhost:8080/myfuselab/customer/all
 [{"CUSTOMERID":"A01","VIPSTATUS":"Diamond","BALANCE":1000},{"CUSTOMERID":"A02","VIPSTATUS":"Gold","BALANCE":500}]
 ```
 
-アプリケーションを停止して、別のAPIエンドポイントを作成してみましょう。Customer IDを引数として、IDにマッチする顧客データを返すAPIとして、
+オプション: アプリケーションを停止して、別のAPIエンドポイントを作成してみましょう。Customer IDを引数として、IDにマッチする顧客データを返すGETメソッドを追加します。
 
-Swagger ドキュメントを表示するためには、以下のコマンドを実行します。
+RESTサービスの仕様はSwaggerドキュメントとして生成されます。Swagger ドキュメントを表示するためには、以下のコマンドを実行します。
 
 ```
 curl -i http://localhost:8080/myfuselab/api-docs
@@ -99,12 +99,12 @@ curl -i http://localhost:8080/myfuselab/api-docs
 
 #### ヒント!
 
-* 新しいREST エンドポイントを追加し、 that takes in customerid and calls the new camel route we just created.
+* 新しいRESTエンドポイントのGETメソッドでuriを以下のように定義することで、custidを引数に持つことができます。
 	* uri="{custid}"
-* 新しいCamelルートを追加し、 customerid をパラメータとして受け付けます。
+* SQLコンポーネントで customerid をパラメータとして受け付けるSQL文を記述します。
 	* select * from customerdemo where customerID=:#custid
 
-Swagger ドキュメントを確認し、 APIをテストします。 顧客A01のデータが正しくJSONフォーマットで返ってくるか確認します。
+Swaggerドキュメントを確認し、APIをテストします。顧客A01のデータが正しくJSONフォーマットで返ってくるか確認します。
 
 ```
 curl -i http://localhost:8080/myfuselab/api-docs
