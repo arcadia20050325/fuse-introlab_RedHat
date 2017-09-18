@@ -1,9 +1,9 @@
-Lab 4 - API管理
+Lab 4 : 作成したAPIを管理する
 ===
 
 ### 作成した顧客APIを、3scale API Managementで管理する
 
-作成した顧客APIを、3scaleで管理するためには、次の3つのステップを実行する必要があります。
+作成した顧客APIを3scaleで管理するためには、次の3つのステップを実行する必要があります。
 
 1. 3scale Admin Portalにアクセスし、サービスを設定します。
 1. デベロッパーポータルをカスタマイズし、開発者としてログインします。
@@ -15,7 +15,8 @@ Lab 4 - API管理
 
 1. 3scale ドメインを取得する
     * 事前準備で取得した3scaleのドメインを確認します。
-    * ドメイン名は管理者ポータルのURLから確認できます。https://&lt;ドメイン名&gt;-admin.3scale.net/p/admin/dashboard
+    * ドメイン名は管理者ポータルのURLから確認できます。
+    　https://&lt;ドメイン名&gt;-admin.3scale.net
 
 1. 3scale アクセストークンを取得する
     * アクセストークンを取得するためには、以下の手順を実行してください。
@@ -50,7 +51,7 @@ Lab 4 - API管理
 
     ![01a-wizard.png](./img/01a-wizard.png)
 
-1. 最初にAPIタブが表示されます。ここでAPIの定義を作成していきます。まずは `Integration` リンクをクリックしてください。
+1. 最初にAPIタブが表示されます。ここでAPIの定義を作成します。まずは `Integration` リンクをクリックしてください。
 
     ![02-api-integration.png](./img/02-api-integration.png)
 
@@ -96,13 +97,13 @@ Lab 4 - API管理
 
 1. **Create Method** をクリックします。
 
-1. **オプション:** `Get Customer` メソッドを追加してください。method if you followed the instructions in the previous part of this lab to search by `{id}`. Name it `customer_get`.
+1. **オプション:** 前のLabで`{id}`をキーに検索するWebサービスも作成している場合、`Get Customer` メソッドを追加してください（メソッド名を`customer_get`とします）。
 
 1. **Add mapping rule** リンクをクリックします。
 
     ![07b-add-mapping-rule.png](./img/07b-add-mapping-rule.png)
 
-1. GET mapping rule の隣にあるeditアイコンをクリックします。
+1. GET mapping rule の右側にあるeditアイコンをクリックします。
 
     ![07b-edit-mapping-rule.png](./img/07b-edit-mapping-rule.png)
 
@@ -116,15 +117,13 @@ Lab 4 - API管理
 
 1. 作成したAPIにアクセスするための情報を入力します。
 
-    **Private Base URL:** `http://camel-ose-springboot-xml.myfuseproject.svc.cluster.local:80`
+    **Private Base URL:** `http://camel-ose-springboot-xml.myfuseproject.<OPENSHIFT-SERVER-IP>.nip.io:80`
 
     **Staging Public Base URL:** `http://customer-api-staging.<OPENSHIFT-SERVER-IP>.nip.io:80`
 
     **Production Public Base URL:** `http://customer-api-production.<OPENSHIFT-SERVER-IP>.nip.io:80`
 
     ![07-baseurl-configuration.png](./img/07-baseurl-configuration.png)
-
-    > **注意:** We are using the internal API service, as we are deploying our services inside the same OpenShift cluster.
 
 1. **API Test GET request**にスクロールします。
 
@@ -143,18 +142,13 @@ Lab 4 - API管理
 
 ### ステップ2: デペロッパーポータルを使って新しいアカウントを登録する
 
-The focal point of your developers’ experience is the API developer portal, and the level of effort you put into it will determine the level of decreased support costs and increased developer engagement. 3scale provides a built-in, state-of-the-art CMS portal, making it very easy to create your own branded hub with a custom domain to manage developer interactions and increase API adoption.
+APIを外部の開発者に利用してもらうためには、デベロッパーポータルによる開発支援が重要なポイントとなります。3scaleはコンテンツ管理システムを組み込んでおり、容易に自社ブランドのデベロッパーポータルを作成することができます。
 
-You can customize the look and feel of the entire Developer Portal to match your own branding. You have complete control over every element of the portal, so you can make it as easy as possible for developers to learn how to use your API.
-
-デベロッパーポータルのコンテンツ管理システムは以下の要素で構成されています。
-* Horizontal menu in the Admin Portal with access to content, redirects, and changes
-* The main area containing details of the sections above
-* CMS mode, accessible through the preview option
+デベロッパーポータルのコンテンツ管理システムは以下のレイアウトで構成されています。
 
 ![09-developer-portal.png](./img/09-developer-portal.png)
 
-Liquid is a simple programming language used for displaying and processing most of the data from the 3scale system available for API providers. In the 3scale platform, it is used to expose server-side data to your API developers, greatly extending the usefulness of the CMS while maintaining a high level of security.
+コンテンツの表示やデータ処理については、Liquidという技術を使用しています。3scaleプラットフォームで発生するサーバーサイドのデータをAPI開発者に公開するために用いられ、高セキュリティを保ちながらコンテンツを使いやすくしています。
 
 1. `Developer Portal` タブをクリックしてデベロッパーポータルの設定画面にアクセスします。
 
@@ -189,7 +183,7 @@ Liquid is a simple programming language used for displaying and processing most 
 
 1. `Echo` と書かれている文字を `Customer` に置き換えます。
 
-1. API呼び出しのサンプルを作成したFuse API用に更新します。
+1. API呼び出しのサンプルを作成したFuseのAPI用に更新します。
 
     > **注意:** 本番用URLで定義しましょう。ただしここが間違っていてもこの後のハンズオンには影響ありません。
 
@@ -233,15 +227,13 @@ Liquid is a simple programming language used for displaying and processing most 
 ### ステップ3: APIcastをOpenShiftテンプレートを使ってデプロイする
 
 
-1. デフォルトではBy default you are logged in as *developer* and can proceed to the next step.
+1. デフォルトでは*developer*でログインされているのでそのまま次のステップに移ります。
 
-    Otherwise login into OpenShift using the `oc login` command from the OpenShift Client tools you downloaded and installed in the previous step. The default login credentials are *username = "developer"* and *password = "developer"*:
+   developerでログインされていない場合は、OpenShiftの`oc login` コマンドを使ってログインします。
 
     ```
     oc login -u developer https://<OPENSHIFT-SERVER-IP>:8443
     ```
-
-    You should see Login successful. in the output.
 
 2. プロジェクトを作成します。今回はdisplay nameを *gateway* とします。
 
@@ -254,7 +246,6 @@ Liquid is a simple programming language used for displaying and processing most 
     ```
     Now using project "3scalegateway" on server "https://172.30.0.112:8443".
     ```
-
 
 1. 3scale管理ポータルを参照するための新しいシークレットを作成します。
 
@@ -292,8 +283,6 @@ Liquid is a simple programming language used for displaying and processing most 
 
     ![17-openshift-login.png](./img/17-openshift-login.png)
 
-      > **注意:** You may receive a warning about an untrusted web-site. This is expected, as we are trying to access the web console through secure protocol, without having configured a valid certificate. While you should avoid this in production environment, for this test setup you can go ahead and create an exception for this address.
-
 1. `developer` アカウントでログインします。
 
     プロジェクト一覧が表示され、先ほど作成した *API Gateway* プロジェクトも含まれていることを確認します。
@@ -306,7 +295,7 @@ Liquid is a simple programming language used for displaying and processing most 
 
     ![19-openshift-threescale.png](./img/19-openshift-threescale.png)
 
-1. APIcastインスタンスがトラフィックを受け付けるようにするためには、 ルートを作成する必要があります。 **Create Route**をクリックします。
+1. APIcastインスタンスがトラフィックを受け付けるようにするためには、ルートを作成する必要があります。 **Create route**をクリックします。
 
     ![20-openshift-create-route.png](./img/20-openshift-create-route.png)
 
@@ -335,11 +324,11 @@ Liquid is a simple programming language used for displaying and processing most 
 
     これでAPI Gateways はトラフィックを受け付ける準備ができました。OpenShift は、2つのAPIcastインスタンスでロードバランスを自動的に行います。
 
-    If you wish to see the APIcast のログを見る場合は、**Applications > Pods** をクリックし、どちらかのpodを選択して **Logs** タブを選択します。
+    APIcast のログを見る場合は、**Applications > Pods** をクリックし、どちらかのpodを選択して **Logs** タブを選択します。
 
 ### ステップ4: APIcast をテストする
 
-1. curlコマンドを使って、APIcast が正しく動作するか確認します。その際、開発者アカウントで割り当てられた `user_key` を使って実施する必要があります。
+1. curlコマンドを使って、APIcastが正しく動作するか確認します。その際、開発者アカウントで割り当てられた `user_key` を使って実行する必要があります。
 
     ```
     curl -i "http://customer-api-production.<OPENSHIFT-SERVER-IP>.nip.io:80/myfuselab/customer/all?user_key=YOUR_USER_KEY" --insecure
