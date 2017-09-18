@@ -1,4 +1,4 @@
-## Lab 3 - OpenShiftにデプロイする
+## Lab 3 : OpenShiftにデプロイする
 
 ###CDKを起動する
 
@@ -13,11 +13,11 @@ minishift start
 oc-cluster up your_name
 ```
 
-ブラウザから https://<OPENSHIFT-IP>:8443/console にアクセスして、OpenShiftコンソールを表示します。 
+ブラウザから *https://<OPENSHIFT-IP>:8443/console* にアクセスして、OpenShiftコンソールを表示します。 
 ![00-openshift.png](./img/00-openshift.png)
 
 
-OpenShiftにアプリケーションをデプロイする前に、これまでインメモリのH2データベースだったものから正規のMySQLデータベースで実行できるようにします。
+OpenShiftにアプリケーションをデプロイする前に、インメモリのH2データベースを、正規のMySQLデータベースで実行できるように変更します。
 以下のデータソース設定を、 *src/main/resources* フォルダにある **application.properties** ファイルに追加します。
 
 ```
@@ -71,6 +71,7 @@ Server application sourceで、**mysql-persistent(database, mysql) - openshift**
 
 ```
 MYSQL_PASSWORD = password
+MYSQL_ROOT_PASSWORD = password
 MYSQL_USER = dbuser
 ```
 ![05-param.png](./img/05-param.png)
@@ -84,10 +85,12 @@ Finishをクリックすると、OpenShift Explorerにmysqlインスタンスが
 ![07-runmvn.png](./img/07-runmvn.png)
 
 ポップアップメニューの左パネルで、**Deploy myfuselab on OpenShift** を選択します。**JRE** タブを選択し、VM argumentsの以下の引数を編集します。
+```
 -Dkubernetes.master=https://<OPENSHIFT-IP>:8443
 -Dkubernetes.namespace=**myfuseproject** 
 -Dkubernetes.auth.basic.username=**developer**
 -Dkubernetes.auth.basic.password=**developer**
+```
 最後に**RUN**をクリックして実行します。
 
 ![08-runconfig.png](./img/08-runconfig.png)
