@@ -1,4 +1,4 @@
-## Lab 1 - 初めてのSprint Boot Fuse プロジェクトを作る
+## Lab 1 : 初めてのSprint Bootプロジェクトを作る
 JBoss Developer StudioのProject Explorerパネルで右クリックし、**New** -> **Fuse Integration Project** を選んで新しいプロジェクトを作成します。
 
 ![01-FIS-project.png](./img/01-FIS-project.png)
@@ -84,7 +84,7 @@ INSERT INTO customerdemo (customerID,vipStatus,balance) VALUES ('A02','Gold',500
 
 ![13-log.png](./img/13-log.png)
 
-アプリケーションを開始する前に、データベースドライバーの依存性を **pom.xml** に追加します。
+アプリケーションを開始する前に、データベースドライバーの依存性を **pom.xml** に追加します。また作成したapplications-dev.propertiesを利用するため、プロファイルにdevを指定します。
 
 ```
 ...
