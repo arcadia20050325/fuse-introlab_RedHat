@@ -80,7 +80,7 @@ INSERT INTO customerdemo (customerID,vipStatus,balance) VALUES ('A02','Gold',500
 
 ![12-datasource.png](./img/12-datasource.png)
 
-最後にAnd lastly select **LOG** コンポーネントを選択し、*Components* パレットからルートに持って来ます。 *Properties*-> *Detail* タブを表示し、 **Message** プロパティに **${body}** を設定します。
+最後に **LOG** コンポーネントを選択し、*Components* パレットからルートに持って来ます。 *Properties*-> *Detail* タブを表示し、 **Message** プロパティに **${body}** を設定します。
 
 ![13-log.png](./img/13-log.png)
 
@@ -112,7 +112,7 @@ Project Explorerパネルの **myfuselab** を右クリックし、**Run As..** 
 
 ![15-springbootrun.png](./img/15-springbootrun.png)
 
-ログコンソールに顧客データが表示されていることを確認します。
+*Run*ボタンをクリックして実行し、ログコンソールに顧客データが表示されていることを確認します。
 ```
 customer - [{CUSTOMERID=A01, VIPSTATUS=Diamond, BALANCE=1000}, {CUSTOMERID=A02, VIPSTATUS=Gold, BALANCE=500}]
 ```

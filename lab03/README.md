@@ -13,7 +13,7 @@ minishift start
 oc-cluster up your_name
 ```
 
-ブラウザから *https://<OPENSHIFT-IP>:8443/console* にアクセスして、OpenShiftコンソールを表示します。 
+ブラウザから **https://<OPENSHIFT-IP>:8443/console** にアクセスして、OpenShiftコンソールを表示します。 
 ![00-openshift.png](./img/00-openshift.png)
 
 

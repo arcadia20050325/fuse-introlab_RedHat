@@ -74,4 +74,6 @@ Red Hat JBoss Developer Studioにビュー戻り、OpenShift Explorer ビュー�
 
 ![06-connection.png](./img/06-connection.png)
 
+これで事前準備は終了です。
+
 

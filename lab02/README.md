@@ -1,7 +1,7 @@
 Lab 2 : APIを作成する
 ===
 
-HTTP API エンドポイントを作成するには、まずCamelコンテキストにServletを注入する必要があります。 **Camel Contexts** の下にある **camel-context.xml** ファイルを開き、*source* タブを表示し、下記のコードを `<camelContext..>` タグの前に追加します。
+HTTP API エンドポイントを作成するには、まずCamelコンテキストにServletを追加する必要があります。 **Camel Contexts** の下にある **camel-context.xml** ファイルを開き、*source* タブを表示し、下記のコードを `<camelContext..>` タグの前に追加します。
 
 ```
     ...
@@ -56,7 +56,7 @@ HTTP API エンドポイントを作成するには、まずCamelコンテキス
 <from id="direct1" uri="direct:getallcustomer"/>
 ```
 
-続いて **pom.xml** ファイルに全ての依存性を追加します。
+続いて **pom.xml** ファイルに依存するライブラリを追加します。
 
 ```
     <dependency>
