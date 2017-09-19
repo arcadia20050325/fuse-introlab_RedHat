@@ -122,7 +122,7 @@ curl http://<YOUR_ROUTE>/myfuselab/customer/A01
 
 [{"CUSTOMERID":"A01","VIPSTATUS":"Diamond","BALANCE":1000}]
 ```
-Camelルートの実行状況を確認するためには、OpenShift コンソールから**Application** -> **pod** に行き、先頭の **camel-ose-springboot-xml-1-xxxxx** ポッドを選択します。
+Camelルートの実行状況を確認するためには、OpenShift コンソールから**Application** -&gt; **pod** に行き、先頭の **camel-ose-springboot-xml-1-xxxxx** ポッドを選択します。
 
 ![12-podlist.png](./img/12-podlist.png)
 
