@@ -87,11 +87,11 @@ Finishをクリックすると、OpenShift Explorerにmysqlインスタンスが
 ポップアップメニューの左パネルで、**Deploy myfuselab on OpenShift** を選択します。**JRE** タブを選択し、VM argumentsの以下の引数を編集します。
 ```
 -Dkubernetes.master=https://<OPENSHIFT-IP>:8443
--Dkubernetes.namespace=**myfuseproject** 
--Dkubernetes.auth.basic.username=**developer**
--Dkubernetes.auth.basic.password=**developer**
+-Dkubernetes.namespace=myfuseproject
+-Dkubernetes.auth.basic.username=developer
+-Dkubernetes.auth.basic.password=developer
 ```
-最後に**RUN**をクリックして実行します。
+最後に**Run**ボタンをクリックして実行します。
 
 ![08-runconfig.png](./img/08-runconfig.png)
 
@@ -158,3 +158,6 @@ mysql> select * from customerdemo;
 +------------+-----------+---------+
 2 rows in set (0.00 sec)
 ```
+
+#### オプション:
+* OpenShiftコンソールからMySQLコンテナのターミナルに直接入ることにより、上記と同様の操作を行ってみましょう。
