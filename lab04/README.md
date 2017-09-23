@@ -114,7 +114,10 @@ Lab 4 : 作成したAPIを管理する
 
     ![20-openshift-create-route.png](./img/20-openshift-create-route.png)
 
-    **Staging Public Base URL** セクションで設定したホスト名を入力します( http:// とポート番号は除く)。
+    まずはステージング用のルートを作成します。
+    **Name:** `apicast-staging`
+
+    **Hostname:** `customer-api-staging.<OPENSHIFT-SERVER-IP>.nip.io`
     その後 **Create** ボタンをクリックします。
 
     ![21-openshift-route-config.png](./img/21-openshift-route-config.png)
