@@ -39,7 +39,110 @@ Lab 4 : 作成したAPIを管理する
 
     > **注意:** このトークンをコピーしてください。万が一忘れた場合は、新しく作成することも可能です。
 
-### ステップ1: APIを定義する
+### ステップ1: APIcastをOpenShiftテンプレートを使ってデプロイする
+
+
+1. デフォルトでは*developer*でログインされているのでそのまま次のステップに移ります。
+
+   developerでログインされていない場合は、OpenShiftの`oc login` コマンドを使ってログインします。
+
+    ```
+    oc login -u developer https://<OPENSHIFT-SERVER-IP>:8443
+    ```
+
+2. プロジェクトを作成します。今回はdisplay nameを *API Gateway* とします。
+
+    ```
+    oc new-project "3scalegateway" --display-name="API Gateway" --description="3scale API gateway"
+    ```
+
+    以下のようなレスポンスになります。
+
+    ```
+    Now using project "3scalegateway" on server "https://172.30.0.112:8443".
+    ```
+
+1. 3scale管理ポータルを参照するための新しいシークレットを作成します。
+
+    ```
+    oc secret new-basicauth apicast-configuration-url-secret --password=https://<ACCESS_TOKEN>@<DOMAIN>-admin.3scale.net
+    ```
+
+    **&lt;ACCESS_TOKEN&gt;** は、3scaleのAccount Management API用に取得したアクセストークンを指定します。 **&lt;DOMAIN&gt;-admin.3scale.net** は、あなた自身で取得した3scale管理者ポータルのURLです。
+
+    以下の応答が返ってきます。
+
+    ```
+    secret/apicast-configuration-url-secret
+    ```
+
+1. APIcast Gateway をテンプレートから生成してデプロイします。
+
+    ```
+    oc new-app -f https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/2.0.0.GA-redhat-2/apicast-gateway/apicast.yml
+    ```
+
+    成功すると以下のメッセージが返ってきます。
+
+    ```
+    --> Creating resources ...
+      deploymentconfig "apicast" created
+      service "apicast" created
+    --> Success
+      Run 'oc status' to view your app.
+    ```
+
+1. OpenShiftのコンソールを開きます。 https://&lt;OPENSHIFT-SERVER-IP&gt;:8443/console/
+
+    ログイン画面が表示されます。
+
+    ![17-openshift-login.png](./img/17-openshift-login.png)
+
+1. `developer` アカウントでログインします。
+
+    プロジェクト一覧が表示され、先ほど作成した *API Gateway* プロジェクトも含まれていることを確認します。
+
+    ![18-openshift-projects.png](./img/18-openshift-projects.png)
+
+1. *API Gateway* をクリックし *Overview* タブを表示します。
+
+    それぞれのAPIcast インスタンスは、開始時に必要となる設定（先ほど3scale管理者ポータルで設定した情報）をダウンロードします。
+
+    ![19-openshift-threescale.png](./img/19-openshift-threescale.png)
+
+1. APIcastインスタンスがトラフィックを受け付けるようにするためには、ルートを作成する必要があります。 **Create route**をクリックします。
+
+    ![20-openshift-create-route.png](./img/20-openshift-create-route.png)
+
+    **Staging Public Base URL** セクションで設定したホスト名を入力します( http:// とポート番号は除く)。
+    その後 **Create** ボタンをクリックします。
+
+    ![21-openshift-route-config.png](./img/21-openshift-route-config.png)
+
+1. 本番用ルートも追加します。左側のメニューから`Applications -> Routes` を選択します。
+
+    ![22-applications-routes.png](./img/22-applications-routes.png)
+
+1. `Create Route` ボタンをクリックします。
+
+    ![23-create-route.png](./img/23-create-route.png)
+
+1. 情報を入力します。
+
+    **Name:** `apicast-production`
+
+    **Hostname:** `customer-api-production.<OPENSHIFT-SERVER-IP>.nip.io`
+
+    ![24-production-route.png](./img/24-production-route.png)
+
+1. `Create` ボタンをクリックして本番用ルートを保存します。
+
+    これでAPI Gateways はトラフィックを受け付ける準備ができました。OpenShift は、2つのAPIcastインスタンスでロードバランスを自動的に行います。
+
+    APIcast のログを見る場合は、**Applications > Pods** をクリックし、どちらかのpodを選択して **Logs** タブを選択します。
+
+
+### ステップ2: APIを定義する
 
 3scale管理者ポータル (http://&lt;YOURDOMAIN&gt;-admin.3scale.net) でAPIの設定を行います。
 
@@ -140,7 +243,7 @@ Lab 4 : 作成したAPIを管理する
 1. これで成功です。あなたの3scale環境は、バックエンドAPIに対して認証されたリクエストのみを許可するように設定できました。
 
 
-### ステップ2: デペロッパーポータルを使って新しいアカウントを登録する
+### ステップ3: デペロッパーポータルを使って新しいアカウントを登録する
 
 APIを外部の開発者に利用してもらうためには、デベロッパーポータルによる開発支援が重要なポイントとなります。3scaleはコンテンツ管理システムを組み込んでおり、容易に自社ブランドのデベロッパーポータルを作成することができます。
 
@@ -223,108 +326,6 @@ APIを外部の開発者に利用してもらうためには、デベロッパ�
 
     > **注意:** このキーを使ってAPIにアクセスしますのでコピーをとっておいてください。
 
-
-### ステップ3: APIcastをOpenShiftテンプレートを使ってデプロイする
-
-
-1. デフォルトでは*developer*でログインされているのでそのまま次のステップに移ります。
-
-   developerでログインされていない場合は、OpenShiftの`oc login` コマンドを使ってログインします。
-
-    ```
-    oc login -u developer https://<OPENSHIFT-SERVER-IP>:8443
-    ```
-
-2. プロジェクトを作成します。今回はdisplay nameを *gateway* とします。
-
-    ```
-    oc new-project "3scalegateway" --display-name="API Gateway" --description="3scale API gateway"
-    ```
-
-    以下のようなレスポンスになります。
-
-    ```
-    Now using project "3scalegateway" on server "https://172.30.0.112:8443".
-    ```
-
-1. 3scale管理ポータルを参照するための新しいシークレットを作成します。
-
-    ```
-    oc secret new-basicauth apicast-configuration-url-secret --password=https://<ACCESS_TOKEN>@<DOMAIN>-admin.3scale.net
-    ```
-
-    **&lt;ACCESS_TOKEN&gt;** は、3scaleのAccount Management API用に取得したアクセストークンを指定します。 **&lt;DOMAIN&gt;-admin.3scale.net** は、あなた自身で取得した3scale管理者ポータルのURLです。
-
-    以下の応答が返ってきます。
-
-    ```
-    secret/apicast-configuration-url-secret
-    ```
-
-1. APIcast Gateway をテンプレートから生成してデプロイします。
-
-    ```
-    oc new-app -f https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/2.0.0.GA-redhat-2/apicast-gateway/apicast.yml
-    ```
-
-    成功すると以下のメッセージが返ってきます。
-
-    ```
-    --> Creating resources ...
-      deploymentconfig "apicast" created
-      service "apicast" created
-    --> Success
-      Run 'oc status' to view your app.
-    ```
-
-1. OpenShiftのコンソールを開きます。 https://&lt;OPENSHIFT-SERVER-IP&gt;:8443/console/
-
-    ログイン画面が表示されます。
-
-    ![17-openshift-login.png](./img/17-openshift-login.png)
-
-1. `developer` アカウントでログインします。
-
-    プロジェクト一覧が表示され、先ほど作成した *API Gateway* プロジェクトも含まれていることを確認します。
-
-    ![18-openshift-projects.png](./img/18-openshift-projects.png)
-
-1. *API Gateway* をクリックし *Overview* タブを表示します。
-
-    それぞれのAPIcast インスタンスは、開始時に必要となる設定（先ほど3scale管理者ポータルで設定した情報）をダウンロードします。
-
-    ![19-openshift-threescale.png](./img/19-openshift-threescale.png)
-
-1. APIcastインスタンスがトラフィックを受け付けるようにするためには、ルートを作成する必要があります。 **Create route**をクリックします。
-
-    ![20-openshift-create-route.png](./img/20-openshift-create-route.png)
-
-    **Staging Public Base URL** セクションで設定したホスト名を入力します( http:// とポート番号は除く)。
-    その後 **Create** ボタンをクリックします。
-
-    ![21-openshift-route-config.png](./img/21-openshift-route-config.png)
-
-1. 本番用ルートも追加します。左側のメニューから`Applications -> Routes` を選択します。
-
-    ![22-applications-routes.png](./img/22-applications-routes.png)
-
-1. `Create Route` ボタンをクリックします。
-
-    ![23-create-route.png](./img/23-create-route.png)
-
-1. 情報を入力します。
-
-    **Name:** `apicast-production`
-
-    **Hostname:** `customer-api-production.<OPENSHIFT-SERVER-IP>.nip.io`
-
-    ![24-production-route.png](./img/24-production-route.png)
-
-1. `Create` ボタンをクリックして本番用ルートを保存します。
-
-    これでAPI Gateways はトラフィックを受け付ける準備ができました。OpenShift は、2つのAPIcastインスタンスでロードバランスを自動的に行います。
-
-    APIcast のログを見る場合は、**Applications > Pods** をクリックし、どちらかのpodを選択して **Logs** タブを選択します。
 
 ### ステップ4: APIcast をテストする
 

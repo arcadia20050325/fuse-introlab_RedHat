@@ -14,7 +14,7 @@
 ここで学習するデプロイパターンは、ハイブリッドアプローチというものです。ハイブリッドアプローチは3scaleのAPIゲートウェイを自分の環境に設定する方法です。
 このゲートウェイはパブリッククラウドで管理された、Red Hat 3Scale SaaS API管理プラットフォーム (以下AMP）と双方向通信を行います。
 
-![00-3scale.png](./img/00-3scale.png)
+![00-3scale-hybrid-deployment.png](./img/00-3scale-hybrid-deployment.png)
 
 Lab4のチュートリアルでこのハイブリッドアプローチを使いますので、事前にRed Hat 3Scale SaaS AMPの無料トライアルアカウントを登録してください。（ https://www.3scale.net/signup ）
 
