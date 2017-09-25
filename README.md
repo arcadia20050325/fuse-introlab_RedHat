@@ -23,14 +23,14 @@ Lab4のチュートリアルでこのハイブリッドアプローチを使い�
 ## インストール
 以下のソフトウェアが事前にインストールされていることを確認してください。
 
-* JBoss Development Suite V2.0.0 (MacOSX/Windows)
+* JBoss Development Suite V2.0.1 (MacOSX/Windows)
 	(ダウンロードリンク: https://developers.redhat.com/products/devsuite/download/ )
-	* JBoss Developer Studio 11.0.0.GA (Red Hat JBoss Fuse Tooling 11.0.0.GAもインストールされていること)
+	* JBoss Developer Studio 11.0.0.GA (Red Hat JBoss Fuse Tooling 10.0.0.GAもインストールされていること)
 	* Java Platform, Standard Edition 1.8.x
-	* Red Hat Container Development Kit 3.1.0-1.GA
+	* Red Hat Container Development Kit 3.1.1-1.GA
 
 ## 開発環境のインストールと設定
-JBoss Development Suiteをダブルクリックし、あなたが登録したRed Hat Developerサイトの認証情報でログインします。
+JBoss Development Suiteオンラインインストーラーをダウンロードし、ダブルクリックで起動をし、あなたが登録したRed Hat Developerサイトの認証情報でログインします。
 
 ![01-login.png](./img/01-login.png)
 
