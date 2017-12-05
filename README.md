@@ -53,10 +53,10 @@ $ sudo rm -rf ~/.kube
 
 Development Suiteをインストールしたフォルダの直下に、 **cdk** という名前のフォルダがあります。
 
-コマンドラインコンソールでローカルのOpenShiftを起動します。
+コマンドラインコンソールでローカルのOpenShiftを起動します。(サブスクリプション登録が無いユーザーは、"--skip-registration"をオプションで追加します）
 
 ```
-./minishift start
+./minishift start --skip-registration
 ```
 
 以下のURLから OpenShiftコンソールにアクセスします。
