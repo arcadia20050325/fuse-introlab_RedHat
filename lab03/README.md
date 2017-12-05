@@ -52,9 +52,6 @@ spring.datasource.password = ${mysql.service.password}
 ![00-view.png](./img/00-view.png)
 ![00-openshiftexplorer02.png](./img/00-openshiftexplorer.png)
 
-OpenShift Explorerの現在接続中のOpenShiftを右クリックして、**NEW** -> **Project** から新規プロジェクトを作成します。
-![01-newproject.png](./img/01-newproject.png)
-
 **注意:** 以前までにOpenShiftの接続を作成していない場合、下記手順を実行してください。
 
 1. **New Connection Wizard...** をクリックしてOpenShiftを設定します。WebコンソールURL (https://&lt;OPENSHIFT-SERVER-IP&gt;:8443) を **Server** に入力し、**retrieve** リンクをクリックしてトークンを入手します。
@@ -68,6 +65,9 @@ OpenShift Explorerの現在接続中のOpenShiftを右クリックして、**NEW
 1. *Save token* ボックスのチェックを外して Finish をクリックします。
 
     ![06-connection.png](../img/06-connection.png)
+
+OpenShift Explorerの現在接続中のOpenShiftを右クリックして、**NEW** -> **Project** から新規プロジェクトを作成します。
+![01-newproject.png](./img/01-newproject.png)
 
 プロジェクト名を **myfuseproject** 、表示名を **My Fuse Project** とします。
 
