@@ -223,7 +223,7 @@ Lab 4 : 作成したAPIを管理する
 
 1. 作成したAPIにアクセスするための情報を入力します。
 
-    **Private Base URL:** `http://camel-ose-springboot-xml.myfuseproject.<OPENSHIFT-SERVER-IP>.nip.io:80`
+    **Private Base URL:** `http://camel-ose-springboot-xml.myfuseproject.svc.cluster.local:80`
 
     **Staging Public Base URL:** `http://customer-api-staging.<OPENSHIFT-SERVER-IP>.nip.io:80`
 
