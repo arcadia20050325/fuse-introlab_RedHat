@@ -243,6 +243,8 @@ Lab 4 : 作成したAPIを管理する
 
     ![08a-promote-production.png](./img/08a-promote-production.png)
 
+1. これらの設定を再読み込みするため、APIcastゲートウェイを再デプロイします。
+
 1. これで成功です。あなたの3scale環境は、バックエンドAPIに対して認証されたリクエストのみを許可するように設定できました。
 
 
